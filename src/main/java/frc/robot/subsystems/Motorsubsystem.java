@@ -1,28 +1,32 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Motorsubsystem extends SubsystemBase {
-    CANSparkMax motor;
-    double throttle
+    private CANSparkMax motor;
+    private CANSparkLowLevel.MotorType type;
+    private double throttle;
 
 
-    public Motorsubsystem(double throttle, CANSparkMax type, int port) {
-        motor = new CANSparkMax(this.port, this.type);
+    public Motorsubsystem(double throttle, CANSparkLowLevel.MotorType type, int port) {
+        motor = new CANSparkMax(port, type);
         this.throttle = throttle;
     }
-    public Motorsubsystem(CANSparkMax type, int port) {
-        this.motor = new CANSparkMax(this.port, this.type);
-        this.throttle = 0.2;
+    public Motorsubsystem(CANSparkLowLevel.MotorType type, int port) {
+        motor = new CANSparkMax(port, type);
+        throttle = 0.2;
     }
 
     public void runMotorforward() {
-        motor.set(this.throttle);
+        motor.set(throttle);
     }
 
     public void runMotorbackward() {
-        motor.set(0-this.throttle);
+        motor.set(-throttle);
     }
 
     public void stopMotor() {
@@ -30,6 +34,18 @@ public class Motorsubsystem extends SubsystemBase {
     }
 
     public void follows(CANSparkMax leader) {
-        motor.follow(this.leader);
+        motor.follow(leader);
+    }
+
+    public void setThrottle(double throttle) {
+        this.throttle = throttle;
+    }
+
+    public CANSparkLowLevel.MotorType getType() {
+        return type;
+    }
+
+    public double getThrottle() {
+        return throttle;
     }
 }

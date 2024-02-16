@@ -6,15 +6,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.DriveTrainConstants;
-import frc.robot.Constants.ManipulatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.Driving;
-import frc.robot.subsystems.DriveTrain;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,26 +20,19 @@ import frc.robot.subsystems.DriveTrain;
 // Vibhav: this creates objects of the classes to use later in file
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private final DriveTrain driveTrain = new DriveTrain();
-    private final Driving driveCommand = new Driving(driveTrain);
 
     // Creates the xbox controller instance
-    // Vibhav: not much to say here... ^^^
     public static final CommandXboxController driverControl =
-        new CommandXboxController(DriveTrainConstants.driverControlPort);
+        new CommandXboxController(0);
 
     // Creates the joystick instance
-    // Vibhav: not much to say here... ^^^
     public static final CommandJoystick manipulatorControl = 
-        new CommandJoystick(ManipulatorConstants.manipulatorControlPort);
+        new CommandJoystick(1);
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    // Vibhav: sets default code
     public RobotContainer() {
-        driveTrain.setDefaultCommand(driveCommand);
-        
+
         // Configure the trigger bindings
-        // Vibhav: configures connection buttons --> commands
         configureBindings();
     }
 
@@ -59,10 +46,8 @@ public class RobotContainer {
      * joysticks}.
      */
 
-    // Vibhav: toggles tank controls.
     private void configureBindings() {
-        // Toggles the tank drive mode when the a button is pressed on the xbox controller
-        driverControl.a().onTrue(driveCommand.toggleDriveTrain);
+
     }
     
     /*
